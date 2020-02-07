@@ -22,7 +22,8 @@ public class ProjectOne {
   private String[] innerHText = new String[6];
   private String[] innerPText = new String[100];
   private int[][] tdTagsPositions = new int[100][2];
-
+  private String[] innerTDText = new String[100];
+  //Header tag Position set/getter
   public void setHTagsPositions(int tagNumber, int index, int position){
     this.hTagsPositions[tagNumber][index] = position;
   };
@@ -30,6 +31,7 @@ public class ProjectOne {
     return hTagsPositions[tagNumber][index];
   };
 
+  //Header tag strings set/getter
   public void setHTagsStrings(String text, int index) {
     this.innerHText[index] = text;
   }
@@ -37,6 +39,7 @@ public class ProjectOne {
     return this.innerHText[index];
   }
 
+  //Paragraph tag strings set/getter
   public void setPTagsStrings(String text, int index) {
     this.innerPText[index] = text;
   }
@@ -44,6 +47,7 @@ public class ProjectOne {
     return this.innerPText[index];
   }
 
+  //Paragraph tag Positions set/getter
   public void setPTagPositions(int index, int whichBracket, int position) {
     this.pTagsPositions[index][whichBracket] = position;
   };
@@ -51,15 +55,17 @@ public class ProjectOne {
     return this.pTagsPositions[tagNumber][index];
   };
 
-  public void setHTagsPositions(int tagNumber, int index, int position){
+  //Table Data tag Position set/getter
+  public void setTDTagsPositions(int tagNumber, int index, int position){
     this.hTagsPositions[tagNumber][index] = position;
   };
-  public int getHTagsPositions(int tagNumber, int index) {
+  public int getTDTagsPositions(int tagNumber, int index) {
     return hTagsPositions[tagNumber][index];
   };
-  
+
 
   public static void main(String[] args) throws Exception {
+    LinkedList <String> theTD;
     String htmlAsString = new String(Files.readAllBytes(Paths.get("C:\\Users\\Arthr\\Documents\\NetBeansProjects\\ProjectOne\\customers.html")));
     String modifiedString = htmlAsString.toLowerCase();
     ProjectOne objData;
@@ -90,14 +96,26 @@ public class ProjectOne {
 
 
     //Get the table data
+    int foundTDOpeningTags = modifiedString.indexOf("<td>");
+    int foundTDClosingTags = modifiedString.indexOf("</td>");
+    int tdIndex = 0;
+    while(foundTDOpeningTags >= 0) {
+      objData.setTDTagsPositions(tdIndex,0,foundTDOpeningTags);
+      objData.setTDTagsPositions(tdIndex,0,foundTDClosingTags);
 
+      foundTDOpeningTags = modifiedString.indexOf("<td>", foundTDOpeningTags + 1);
+      foundTDClosingTags = modifiedString.indexOf("</td>", foundTDClosingTags + 1);
+      tdIndex++;
+    }
 
     //Print output to a File
     File outFile = new File("output.txt");
     PrintStream output = new PrintStream(outFile);
+    //Print H tags
     for(int i = 0; i < 6; i++) {
       if(objData.getHTagsStrings(i) != null) {output.println(objData.getHTagsStrings(i));}
     }
+    //Print P tags
     output.println(" ");
     for(int i = 0; i < pIndex; i++) {
         output.println(objData.getPTagsStrings(i));
