@@ -1,102 +1,24 @@
 /*
-    Object Orieted Programming, Section 01, Sprint 2020
-    Arthur Lee Jones
-    Project 1
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-
 package projectone;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.io.PrintStream;
-import java.util.Scanner;
+
 /**
  *
- * @author Arthur
+ * @author Arthr
  */
-public class ProjectOne {
-  private int[][] headerTagPositions = new int[6][2];
-  private int[][] paragraphTagPositions = new int[100][2];
-  private int[][] tableDataTagPositions = new int[100][2];
-  private int[][] tableHeaderTagPositions = new int[100][2];
-  private String[] headerTextList = new String[6];
-  private String[] paragraphTextList = new String[100];
-  private String[] tableDataTextList = new String[100];
-  private String[] tableHeaderTextList = new String[100];
-  //Header tag Position set/getter
-  public void setHTagsPositions(int tagNumber, int index, int position){
-    this.headerTagPositions[tagNumber][index] = position;
-  };
-  public int getHTagsPositions(int tagNumber, int index) {
-    return headerTagPositions[tagNumber][index];
-  };
-
-  //Header tag strings set/getter
-  public void setHTagsStrings(String text, int index) {
-    this.headerTextList[index] = text;
-  }
-  public String getHTagsStrings(int index) {
-    return this.headerTextList[index];
-  }
-
-
-  //Paragraph tag Positions set/getter
-  public void setPTagPositions(int index, int whichBracket, int position) {
-    this.paragraphTagPositions[index][whichBracket] = position;
-  };
-  public int getPTagsPositions(int tagNumber, int index) {
-    return this.paragraphTagPositions[tagNumber][index];
-  };
-
-  //Paragraph tag strings set/getter
-  public void setPTagsStrings(String text, int index) {
-    this.paragraphTextList[index] = text;
-  }
-  public String getPTagsStrings(int index) {
-    return this.paragraphTextList[index];
-  }
-
-  //Table Data tag Position set/getter
-  public void setTDTagsPositions(int tagNumber, int index, int position){
-    this.tableDataTagPositions[tagNumber][index] = position;
-
-  };
-  public int getTDTagsPositions(int tagNumber, int index) {
-    return tableDataTagPositions[tagNumber][index];
-  };
-
-  //Table Data tag strings set/getter
-  public void setTDTagsStrings(String text, int index) {
-    this.tableDataTextList[index] = text;
-    //System.out.println("Contents (Java 7)as : " + this.tableDataTextList[index]);
-  }
-  public String getTDTagsStrings(int index) {
-    return this.tableDataTextList[index];
-  }
-
-
-  //Table Header tag Position set/getter
-  public void setTableHeaderTagsPositions(int tagNumber, int index, int position){
-    this.tableHeaderTagPositions[tagNumber][index] = position;
-
-  };
-  public int getTableHeaderTagsPositions(int tagNumber, int index) {
-    return tableHeaderTagPositions[tagNumber][index];
-  };
-
-  //Table Header tag strings set/getter
-  public void setTableHeaderTagsStrings(String text, int index) {
-    this.tableHeaderTextList[index] = text;
-    System.out.println("Contents (Java 7)as : " + this.tableHeaderTextList[index]);
-  }
-  public String getTableHeaderTagsStrings(int index) {
-    return this.tableHeaderTextList[index];
-  }
+public class ProjectOneMain {
 
   public static void main(String[] args) throws Exception {
 
-    String htmlAsString = new String(Files.readAllBytes(Paths.get("C:\\Users\\Arthr\\Documents\\NetBeansProjects\\ProjectOne\\customers.html")));
+    String htmlAsString = new String(Files.readAllBytes(Paths.get("C:\\Users\\Arthr\\Documents\\NetBeansProjects\\ProjectOne\\SecondExampleTable.html")));
     String modifiedString = htmlAsString.toLowerCase();
     ProjectOne objData;
     objData = new ProjectOne();
@@ -138,6 +60,21 @@ public class ProjectOne {
       tdIndex++;
     }
 
+    //Remove any A tags from the TD tags.
+    for(int i = 0; i < tdIndex; i++) {
+        String formatedString = objData.getTDTagsStrings(i);
+        int foundAOpeningTag = formatedString.indexOf(">");
+        int foundAClosingTag = formatedString.indexOf("</a>");
+        if(foundAOpeningTag > 0 || foundAClosingTag > 0) {
+          formatedString = formatedString.substring(0,foundAOpeningTag-1);
+          formatedString = formatedString.substring(foundAClosingTag,formatedString.length());
+          objData.setTDTagsStrings(formatedString,i);
+        }
+        System.out.println("Contents (Java 7)as : " + formatedString);
+
+    }
+
+
     //Get the table header
     int foundTableHeaderOpeningTags = modifiedString.indexOf("<th>");
     int foundTableHeaderClosingTags = modifiedString.indexOf("</th>");
@@ -154,14 +91,30 @@ public class ProjectOne {
     //Print output to a File
     File outFile = new File("output.txt");
     PrintStream output = new PrintStream(outFile);
+
     //Print H tags
     for(int i = 0; i < 6; i++) {
       if(objData.getHTagsStrings(i) != null) {output.println(objData.getHTagsStrings(i));}
     }
+
     //Print P tags
     output.println(" ");
     for(int i = 0; i < pIndex; i++) {
         output.println(objData.getPTagsStrings(i));
     }
+
+    //Print table header tags
+    for(int i = 0; i < tHeaderIndex; i++) {
+      output.print(objData.getTableHeaderTagsStrings(i));
+      if(i < tHeaderIndex) output.print(", ");
+    }
+
+    //print table data tags
+    for(int i = 0; i < tdIndex; i++) {
+      if((i % tHeaderIndex) == 0) output.println("");
+      output.print(objData.getTDTagsStrings(i));
+      if(i < tdIndex) output.print(", ");
+    }
+
   };
-};
+}
