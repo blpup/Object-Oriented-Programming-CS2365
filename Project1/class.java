@@ -15,11 +15,12 @@ public class ProjectOne {
   private int[][] paragraphTagPositions = new int[100][2];
   private int[][] tableDataTagPositions = new int[100][2];
   private int[][] tableHeaderTagPositions = new int[100][2];
+  private int[] titleTagPosition = new int[2];
   private String[] headerTextList = new String[6];
   private String[] paragraphTextList = new String[100];
   private String[] tableDataTextList = new String[100];
   private String[] tableHeaderTextList = new String[100];
-  
+  private String titleTagText;
   //Header tag Position set/getter
   public void setHTagsPositions(int tagNumber, int index, int position){
     this.headerTagPositions[tagNumber][index] = position;
@@ -84,9 +85,24 @@ public class ProjectOne {
   //Table Header tag strings set/getter
   public void setTableHeaderTagsStrings(String text, int index) {
     this.tableHeaderTextList[index] = text;
-    System.out.println("Contents (Java 7)as : " + this.tableHeaderTextList[index]);
   }
   public String getTableHeaderTagsStrings(int index) {
     return this.tableHeaderTextList[index];
+  }
+
+  //Title tag Position set/getter
+  public void setTitleTagPosition(int index, int position) {
+    this.titleTagPosition[index] = position;
+  };
+  public int getTitleTagPosition(int index) {
+    return this.titleTagPosition[index];
+  };
+
+  //Title tag string set/getter
+  public void setTitleTagString(String text) {
+    this.titleTagText = text;
+  }
+  public String getTitleTagString() {
+    return this.titleTagText;
   }
 };
