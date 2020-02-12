@@ -23,7 +23,19 @@ public class ProjectOneMain {
     String modifiedString = htmlAsString.toLowerCase(); //Convert the string to lowercase.
     ProjectOne objData = new ProjectOne(); //Start a new Class object
 
+    //Remove img tag
+    int foundStartingImgTag = htmlAsString.indexOf("<img");
+    int imgIndex = 0;
+    String wholeImg = "";
+    while(htmlAsString.charAt(foundStartingImgTag + imgIndex) != '>') {
+      wholeImg = wholeImg + htmlAsString.charAt(foundStartingImgTag + imgIndex);
+      imgIndex++;
+    }
 
+    wholeImg = wholeImg + htmlAsString.charAt(foundStartingImgTag + imgIndex);
+    String modifiedImgString = wholeImg.toLowerCase();
+    modifiedString = modifiedString.replace("<p>"+modifiedImgString+"</p>","");
+    htmlAsString = htmlAsString.replace("<p>"+wholeImg+"</p>","");
     //Get title tag
     int foundTitleOpeningTag = modifiedString.indexOf("<title>"); //Get the index of the opening title tag
     int foundTitleClosingTag = modifiedString.indexOf("</title>"); //Get the index of the closing title tag
