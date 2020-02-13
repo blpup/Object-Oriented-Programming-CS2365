@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 /**
  *
@@ -18,8 +19,21 @@ import java.nio.file.Paths;
 public class ProjectOneMain {
 
   public static void main(String[] args) throws Exception {
+    Scanner input = new Scanner(System.in);
+    boolean fileExists;
+    String fileName;
+    File file;
+    
+    do {
+      System.out.print("Enter a file name: ");
+      fileName = input.next();
+      file = new File(fileName);
+      fileExists = file.exists();
+      if(!fileExists) System.out.println("File not found. Please try again.");
+    } while(!fileExists);
 
-    String htmlAsString = new String(Files.readAllBytes(Paths.get("C:\\Users\\Arthr\\Documents\\NetBeansProjects\\ProjectOne\\SecondExampleTable.html"))); //File location
+    System.out.println("File found.");
+    String htmlAsString = new String(Files.readAllBytes(Paths.get(fileName))); //File location
     String modifiedString = htmlAsString.toLowerCase(); //Convert the string to lowercase.
     ProjectOne objData = new ProjectOne(); //Start a new Class object
 
@@ -138,6 +152,6 @@ public class ProjectOneMain {
       output.print(objData.getTDTagsStrings(i));
       if(i < tdIndex) output.print(", ");
     }
-
+    System.out.println("Exported the file to main directory.");
   };
 }
