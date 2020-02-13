@@ -19,28 +19,25 @@ public class ProjectOneMain {
 
   public static void main(String[] args) throws Exception {
 
-    String htmlAsString = new String(Files.readAllBytes(Paths.get("C:\\Users\\Arthr\\Documents\\NetBeansProjects\\ProjectOne\\Matador_Song_TTU.html"))); //File location
+    String htmlAsString = new String(Files.readAllBytes(Paths.get("C:\\Users\\Arthr\\Documents\\NetBeansProjects\\ProjectOne\\SecondExampleTable.html"))); //File location
     String modifiedString = htmlAsString.toLowerCase(); //Convert the string to lowercase.
     ProjectOne objData = new ProjectOne(); //Start a new Class object
 
     //Remove img tag
     int foundStartingImgTag = htmlAsString.indexOf("<img");
-    int imgIndex = 0;
     String wholeImg = "";
-    while(htmlAsString.charAt(foundStartingImgTag + imgIndex) != '>') {
-      wholeImg = wholeImg + htmlAsString.charAt(foundStartingImgTag + imgIndex);
-      imgIndex++;
+    for(int i = 0;;i++) {
+      if(foundStartingImgTag < 0) break;
+      wholeImg = wholeImg + htmlAsString.charAt(foundStartingImgTag + i);
+      if(htmlAsString.charAt(foundStartingImgTag + i) == '>') break;
     }
-
-    wholeImg = wholeImg + htmlAsString.charAt(foundStartingImgTag + imgIndex);
-    String modifiedImgString = wholeImg.toLowerCase();
-    modifiedString = modifiedString.replace("<p>"+modifiedImgString+"</p>","");
+    modifiedString = modifiedString.replace("<p>"+wholeImg.toLowerCase()+"</p>","");
     htmlAsString = htmlAsString.replace("<p>"+wholeImg+"</p>","");
+
+
     //Get title tag
-    int foundTitleOpeningTag = modifiedString.indexOf("<title>"); //Get the index of the opening title tag
-    int foundTitleClosingTag = modifiedString.indexOf("</title>"); //Get the index of the closing title tag
-    objData.setTitleTagPosition(0,foundTitleOpeningTag); //Store the starting title position inside our object
-    objData.setTitleTagPosition(1,foundTitleClosingTag); //Store the closing title position inside our object
+    objData.setTitleTagPosition(0,modifiedString.indexOf("<title>")); //Store the starting title position inside our object
+    objData.setTitleTagPosition(1,modifiedString.indexOf("</title>")); //Store the closing title position inside our object
     objData.setTitleTagString(htmlAsString.substring(objData.getTitleTagPosition(0)+7,objData.getTitleTagPosition(1))); //Cut the string so it only contains the text inside the <title> tag and store it inside our object
 
     //Loop through and get the H1-6 tag positions (if any)
@@ -65,6 +62,8 @@ public class ProjectOneMain {
       foundPClosingTags = modifiedString.indexOf("</p>", foundPClosingTags + 1); //Find the next closing tag
       pIndex++; //++ to the counter
     }
+
+    //Replace and <br> tags with enters
     for(int i = 0; i < pIndex; i++) {
       String formatedString = objData.getPTagsStrings(i);
       formatedString = formatedString.replace("<br> ", "\n");
