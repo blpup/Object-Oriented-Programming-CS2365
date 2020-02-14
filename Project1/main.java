@@ -1,9 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    Object Orieted Programming, Section 01, Sprint 2020
+    Arthur Lee Jones
+    Project 1
  */
- //System.out.println("Contents (Java 7)as : " + foundPOpeningTags + " " +  foundPClosingTags);
+
 package projectone;
 
 import java.io.File;
@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Arthr
+ * @author Arthur
  */
 public class ProjectOneMain {
 
@@ -152,6 +152,6 @@ public class ProjectOneMain {
       output.print(objData.getTDTagsStrings(i));
       if(i < tdIndex) output.print(", ");
     }
-    System.out.println("Exported the file to main directory.");
+    System.out.println("Exported the file ("+ objData.getTitleTagString()+".txt) to " + System.getProperty("user.dir"));
   };
 }
