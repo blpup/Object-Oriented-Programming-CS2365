@@ -138,6 +138,7 @@ public class ProjectOneMain {
     output.println(" ");
     for(int i = 0; i < pIndex; i++) {
         output.println(objData.getPTagsStrings(i));
+        output.println("");
     }
 
     //Print table header tags
