@@ -16,8 +16,13 @@ import java.util.Scanner;
  *
  * @author Arthur
  */
-public class ProjectOneMain {
 
+public class ProjectOneMain {
+/**
+ * 
+ * @param args
+ * @throws Exception 
+ */
   public static void main(String[] args) throws Exception {
     Scanner input = new Scanner(System.in);
     boolean fileExists;
