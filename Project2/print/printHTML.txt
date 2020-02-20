@@ -1,0 +1,14 @@
+Class Name: printHTML
+
+-Data Members
+---------------
+- String currentHand;
+- String currentCalculations;
+
+=============================
+
+-Methods
+--------------
++ setPrintHand(Hand[] hand) : String
++ setPrintCalculations(int pushups, int situps, int squats, int lounges, int burpees) : String
++ printNewRow(String currentHand, String CurrentCalculations) : String
