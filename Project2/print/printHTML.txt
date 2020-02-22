@@ -2,14 +2,16 @@ Class Name: printHTML
 
 -Data Members
 ---------------
-:NONE:
+- String innerHTML
 
 =============================
 
 -Methods
 --------------
-+ initHTML() : String
-+ printCard(Card card) : String
-+ printHand(Hand[] hand) : String
-+ printCalculations(int pushups, int situps, int squats, int lounges, int burpees) : String
-+ printRow(String currentHand, String CurrentCalculations) : String
+- HTMLStart() : String
+- HTMLEnd() : String
+- printCard(int number, String color) : String
+- printCard(String name, String color) : String
+- printHand(Object[] hand) : String
+- printCalculations(int pushups, int situps, int squats, int lounges, int burpees) : String
++ printRow(Object[] hand, Array calculations) : String
