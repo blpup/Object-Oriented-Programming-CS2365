@@ -19,7 +19,7 @@ public class printHTML {
                                 "<meta charset=\"utf-8\">" +
                                 "<title></title>" +
                             "</head>" +
-                            "<body style=\"text-align:center; margin:0px;\">";
+                            "<body style=\"text-align:center; margin:0px; padding:0 10px;\">";
     }
     
     private String HTMLEnd() {
@@ -53,32 +53,61 @@ public class printHTML {
     private String printHand() {
         String currentHand = "";
          currentHand += "<div style=\" display:inline-block;\">";
+         currentHand += this.printRoundNumber();
          currentHand += printCard(4,"blue");
          currentHand += printCard(5,"red");
          currentHand += printCard(7,"green");
+         currentHand += printCard(3,"yellow");
+         currentHand += printCard(2,"red");
+         currentHand += printCard("skip","green");
          currentHand += printCard("Wild","red");
+         currentHand += this.printCardsleft();
          currentHand += "</div>";
          return currentHand;
     }
     
+    private String printCardsleft() {
+        String currentInformation = "";
+        currentInformation += "<div style=\"width:100%; border-top:thin solid black; margin-top:25px; padding-top:25px;\">";
+        currentInformation += "Cards left in deck: 100";
+        currentInformation += "</div>";
+        return currentInformation;
+    }
+    
+    private String printFinalInformation() {
+        String finalInformation = "";
+        finalInformation += "The total number of repetitions per exercise: ";
+        finalInformation += "The total number of repetitions per exercise that were skipped: : ";
+        finalInformation += "The biggest number of repetitions in a single hand for each exercise: ";
+        return finalInformation;
+    }
+    
+    private String printRoundNumber() {
+        String currentRound ="";
+        currentRound += "<div style=\"width:100%; font-size:25px; font-weight:bold; text-align:left; margin-bottom:25px;\">";
+        currentRound += "Round 1";
+        currentRound += "</div>";
+        return currentRound;
+    }
     private String printCalculations() {
         String currentCalculations = "";
-        currentCalculations += "<div style=\" display:inline-block; margin-left:15px; border-left:thin solid black; padding-left:15px; margin-top:15px;\">";
+        currentCalculations += "<div style=\" display:inline-block; margin-left:15px; border-left:thin solid black; padding-left:15px;\">";
         currentCalculations += "<div style=\" background-color:rgb(0,112,192);color:black; font-weight: bold; border-radius: 3px;\"><div style=\" padding: 10px 25px; \">Push Ups</div><div style=\" background-color: white; color: black; border: thin solid black; border-top: none; text-align: center; padding: 10px 0px; \">12</div></div>";
-        currentCalculations += "<div style=\" background-color:rgb(255,255,0); color:black; font-weight: bold; border-radius: 3px; margin-top: 10px;\"><div style=\" padding: 10px 25px; \">Push Ups</div><div style=\" background-color: white; color: black; border: thin solid black; border-top: none; text-align: center; padding: 10px 0px; \">12</div></div>";
-        currentCalculations += "<div style=\" background-color:rgb(254,0,0); color:black; font-weight: bold; border-radius: 3px; margin-top: 10px;\"><div style=\" padding: 10px 25px; \">Push Ups</div><div style=\" background-color: white; color: black; border: thin solid black; border-top: none; text-align: center; padding: 10px 0px; \">12</div></div>";
-        currentCalculations += "<div style=\" background-color:rgb(0,176,80); color:black; font-weight: bold; border-radius: 3px; margin-top: 10px;\"><div style=\" padding: 10px 25px; \">Push Ups</div><div style=\" background-color: white; color: black; border: thin solid black; border-top: none; text-align: center; padding: 10px 0px; \">12</div></div>";
+        currentCalculations += "<div style=\" background-color:rgb(255,255,0); color:black; font-weight: bold; border-radius: 3px; margin-top: 10px;\"><div style=\" padding: 10px 25px; \">Squats</div><div style=\" background-color: white; color: black; border: thin solid black; border-top: none; text-align: center; padding: 10px 0px; \">12</div></div>";
+        currentCalculations += "<div style=\" background-color:rgb(254,0,0); color:black; font-weight: bold; border-radius: 3px; margin-top: 10px;\"><div style=\" padding: 10px 25px; \">Sit Ups</div><div style=\" background-color: white; color: black; border: thin solid black; border-top: none; text-align: center; padding: 10px 0px; \">12</div></div>";
+        currentCalculations += "<div style=\" background-color:rgb(0,176,80); color:black; font-weight: bold; border-radius: 3px; margin-top: 10px;\"><div style=\" padding: 10px 25px; \">Lounges</div><div style=\" background-color: white; color: black; border: thin solid black; border-top: none; text-align: center; padding: 10px 0px; \">12</div></div>";
+        currentCalculations += "<div style=\" background-color:rgb(128,0,128); color:black; font-weight: bold; border-radius: 3px; margin-top: 10px;\"><div style=\" padding: 10px 25px; \">Burpees</div><div style=\" background-color: white; color: black; border: thin solid black; border-top: none; text-align: center; padding: 10px 0px; \">12</div></div>";
         currentCalculations += "</div>";
         return currentCalculations;
     }
     
     public void setRow() {
-        this.innerHTML += "<section style=\"border-bottom:thin solid black; padding-bottom:15px; margin-bottom:15px;\">";
-        this.innerHTML  += this.printHand() + this.printCalculations();
+        this.innerHTML += "<section style=\"border-bottom:thin solid black; padding:15px 0; display:flex; align-items:center; justify-content:center;\">";
+        this.innerHTML  += this.printHand() + this.printCalculations() +  this.printFinalInformation();
         this.innerHTML += "</section>";
     }
      
     public String buildHTML() {
-        return this.HTMLStart() + this.innerHTML + this.HTMLEnd();
+        return this.HTMLStart() + this.innerHTML  + this.HTMLEnd();
     }
 }
