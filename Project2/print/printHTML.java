@@ -76,9 +76,11 @@ public class printHTML {
     
     private String printFinalInformation() {
         String finalInformation = "";
-        finalInformation += "The total number of repetitions per exercise: ";
-        finalInformation += "The total number of repetitions per exercise that were skipped: : ";
-        finalInformation += "The biggest number of repetitions in a single hand for each exercise: ";
+        finalInformation += "<div style=\" padding: 20px 0;\">";
+        finalInformation += "<div style=\" display:inline-block; margin:0 10px;\">The total number of repetitions per exercise: "+ this.printCalculations()+"</div>";
+        finalInformation += "<div style=\" display:inline-block; margin:0 10px;\"> The total number of repetitions per exercise that were skipped: "+ this.printCalculations()+"  </div>";
+        finalInformation += "<div style=\"  display:inline-block; margin:0 10px;\"> The biggest number of repetitions in a single hand for each exercise: "+ this.printCalculations()+" </div>";
+        finalInformation += "</div>";
         return finalInformation;
     }
     
@@ -91,7 +93,7 @@ public class printHTML {
     }
     private String printCalculations() {
         String currentCalculations = "";
-        currentCalculations += "<div style=\" display:inline-block; margin-left:15px; border-left:thin solid black; padding-left:15px;\">";
+        currentCalculations += "<div style=\" display:block; margin-left:15px; border-left:thin solid black; padding-left:15px; vertical-align:top\">";
         currentCalculations += "<div style=\" background-color:rgb(0,112,192);color:black; font-weight: bold; border-radius: 3px;\"><div style=\" padding: 10px 25px; \">Push Ups</div><div style=\" background-color: white; color: black; border: thin solid black; border-top: none; text-align: center; padding: 10px 0px; \">12</div></div>";
         currentCalculations += "<div style=\" background-color:rgb(255,255,0); color:black; font-weight: bold; border-radius: 3px; margin-top: 10px;\"><div style=\" padding: 10px 25px; \">Squats</div><div style=\" background-color: white; color: black; border: thin solid black; border-top: none; text-align: center; padding: 10px 0px; \">12</div></div>";
         currentCalculations += "<div style=\" background-color:rgb(254,0,0); color:black; font-weight: bold; border-radius: 3px; margin-top: 10px;\"><div style=\" padding: 10px 25px; \">Sit Ups</div><div style=\" background-color: white; color: black; border: thin solid black; border-top: none; text-align: center; padding: 10px 0px; \">12</div></div>";
@@ -103,11 +105,11 @@ public class printHTML {
     
     public void setRow() {
         this.innerHTML += "<section style=\"border-bottom:thin solid black; padding:15px 0; display:flex; align-items:center; justify-content:center;\">";
-        this.innerHTML  += this.printHand() + this.printCalculations() +  this.printFinalInformation();
+        this.innerHTML  += this.printHand() + this.printCalculations();
         this.innerHTML += "</section>";
     }
      
     public String buildHTML() {
-        return this.HTMLStart() + this.innerHTML  + this.HTMLEnd();
+        return this.HTMLStart() + this.innerHTML  + this.printFinalInformation() + this.HTMLEnd();
     }
 }
