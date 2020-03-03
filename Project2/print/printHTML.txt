@@ -10,8 +10,11 @@ Class Name: printHTML
 --------------
 - HTMLStart() : String
 - HTMLEnd() : String
-- printCard(int number, String color) : String
+- printCardsLeft(int cardsLeft) : String
 - printCard(String name, String color) : String
+- printFinalInformation(int[] totalReps, int[] totalSkipped, int[] totalSinglehand) : String
+- printRoundNumber(int round) : String
+- printCalculations(int[] values) : String
 - printHand(Object[] hand) : String
-- printCalculations(int pushups, int situps, int squats, int lounges, int burpees) : String
 + printRow(Object[] hand, Array calculations) : String
+- buildHTML(int[] totalReps, int[] totalSkipped, int[] totalSingleHand) : String
